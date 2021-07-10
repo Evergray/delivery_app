@@ -1,0 +1,13 @@
+<%= form_with model: @courier do |f| %>
+    <div>
+        <%= f.label :name %>
+        <%= f.text_field :name, required: true %>
+    </div>
+
+    <div>
+        <%= f.label :email %>
+        <%= f.text_field :email, required: true %>
+    </div>
+
+    <%= f.submit "Submit!" %>
+<% end %>

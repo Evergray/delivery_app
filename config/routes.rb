@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get '/couriers', to: 'couriers#index'
+  resources :couriers
 
-  root 'pages#index';
+  root 'pages#index'
 end
