@@ -1,10 +1,22 @@
-<h1>Couriers</h1>
+<h1 class='mb-4'>Couriers</h1>
 
 <% @couriers.each do |courier| %>
-    <h2><%= courier.name%></h2>
-    <%= mail_to courier.email %>
-    <br>
-    <%= link_to 'Show', courier_path(courier) %> |
-    <%= link_to 'Edit', edit_courier_path(courier) %> |
-    <%= link_to 'Delete', courier_path(courier), data: {method: :delete, confirm:'Are you sure?'} %>
+    <article class='card mt-3'>
+        <div class='card-body'>
+            <h4><%= courier.name%></h4>
+
+            <section class='card-text'>
+                <p class='my-2'>
+                    <span>Email: </span>
+                    <%= mail_to courier.email%>
+                </p>
+            </section>
+
+            <%= link_to 'Show', courier_path(courier), class: 'btn btn-primary' %> 
+            <%= link_to 'Edit', edit_courier_path(courier), class: 'btn btn-secondary' %> 
+            <%= link_to 'Delete', courier_path(courier), class: 'btn btn-danger', data: {method: :delete, confirm:'Are you sure?'} %>
+        </div>
+    </article>
 <% end %>
+
+<%= link_to 'New courier', new_courier_path, class: 'btn btn-primary btn-lg mt-3' %>

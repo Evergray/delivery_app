@@ -10,6 +10,7 @@ class CouriersController < ApplicationController
     def create
         @courier = Courier.new courier_params
         if @courier.save
+            flash[:success] = 'Courier created!'
             redirect_to couriers_path
         else
             render :new
@@ -23,6 +24,7 @@ class CouriersController < ApplicationController
     def update
         @courier = Courier.find_by id: params[:id]
         if @courier.update courier_params
+            flash[:success] = 'Courier updated!'
             redirect_to couriers_path
         else
             render :edit
@@ -32,6 +34,7 @@ class CouriersController < ApplicationController
     def destroy
         @courier = Courier.find_by id: params[:id]
         @courier.destroy
+        flash[:success] = 'Courier deleted!'
         redirect_to couriers_path
     end
 

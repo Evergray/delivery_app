@@ -1,3 +1,9 @@
-<h1><%= @courier.name %></h1>
+<h1 class='mb-4'><%= @courier.name %></h1>
 
-<%= mail_to @courier.email %>
+<p class='lead my-3'>
+    <span>Email: </span>
+    <%= mail_to @courier.email%>
+</p>
+
+<%= link_to 'Edit', edit_courier_path(@courier), class: 'btn btn-secondary' %> 
+<%= link_to 'Delete', courier_path(@courier), class: 'btn btn-danger', data: {method: :delete, confirm:'Are you sure?'} %>
