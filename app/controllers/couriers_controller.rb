@@ -1,4 +1,6 @@
 class CouriersController < ApplicationController
+    before_action :find_courier!, only: %i[show destroy edit update]
+
     def index
         @couriers = Courier.all
     end
@@ -18,11 +20,9 @@ class CouriersController < ApplicationController
     end
 
     def edit
-        @courier = Courier.find_by id: params[:id]
     end
 
     def update
-        @courier = Courier.find_by id: params[:id]
         if @courier.update courier_params
             flash[:success] = 'Courier updated!'
             redirect_to couriers_path
@@ -32,17 +32,23 @@ class CouriersController < ApplicationController
     end
 
     def destroy
-        @courier = Courier.find_by id: params[:id]
         @courier.destroy
         flash[:success] = 'Courier deleted!'
         redirect_to couriers_path
     end
 
     def show
-        @courier = Courier.find_by id: params[:id]        
+        @package = @courier.packages.build
+        @packages = @courier.packages.order created_at: :desc                
     end
+
+    private
 
     def courier_params
         params.require(:courier).permit(:name, :email)
+    end
+
+    def find_courier!
+        @courier = Courier.find params[:id]
     end
 end

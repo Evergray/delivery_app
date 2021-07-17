@@ -1,3 +1,5 @@
+<% provide :page_title, 'Courier ' + @courier.name %>
+
 <h1 class='mb-4'><%= @courier.name %></h1>
 
 <p class='lead my-3'>
@@ -5,5 +7,54 @@
     <%= mail_to @courier.email%>
 </p>
 
-<%= link_to 'Edit', edit_courier_path(@courier), class: 'btn btn-secondary' %> 
-<%= link_to 'Delete', courier_path(@courier), class: 'btn btn-danger', data: {method: :delete, confirm:'Are you sure?'} %>
+<hr class='mb-3'>
+
+<%= form_with model: [@courier, @package] do |f| %>
+    <h2>Create new package</h2>
+
+    <%= render 'shared/errors', object: @package %>
+
+    <div class='mb-3 row'>
+        <div class='col-sm-2 col-form-label'>
+            <%= f.label :tracking_number %>
+        </div>
+
+        <div class='col-sm-4'>
+            <%= f.text_field :tracking_number, required: true, class: 'form-control' %>
+        </div>
+    </div>
+
+    <div class='mb-4 form-check'>
+        <%= f.check_box :delivery_status, class: 'form-check-input' %>
+        <%= f.label :delivery_status, class: 'form-check-label' %>
+    </div>
+
+    <%= f.submit "Submit!", class: 'btn btn-primary mb-4' %>
+<% end %>
+
+
+<h2>Packages: </h2>
+
+<table class='table'>
+    <thead>
+        <tr>
+            <th scope="col">Tracking number</th>
+            <th scope="col">Delivery status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @packages.each do |package| %>
+            <% if package.delivery_status %>
+                <tr class='table-success'>
+                    <td><%= package.tracking_number %></td>
+                    <td>Active</td>
+                </tr>
+            <% else %>
+                <tr class='table-warning'>
+                    <td><%= package.tracking_number %></td>
+                    <td>Not active</td>
+                </tr>
+            <% end %>
+        <% end %>
+    </tbody>
+</table>
