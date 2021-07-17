@@ -40,6 +40,7 @@
         <tr>
             <th scope="col">Tracking number</th>
             <th scope="col">Delivery status</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -48,11 +49,27 @@
                 <tr class='table-success'>
                     <td><%= package.tracking_number %></td>
                     <td>Active</td>
+                    <td class='d-flex justify-content-center'>
+                        <div>
+                            <%= link_to 'Deactivate', activate_courier_package_path(@courier, package), 
+                                class: 'btn btn-secondary', data: {method: :PUT} %>
+                            <%= link_to 'Delete', courier_package_path(@courier, package), 
+                                class: 'btn btn-danger', data: {method: :delete, confirm:'Are you sure?'} %>
+                        </div>
+                    </td>
                 </tr>
             <% else %>
                 <tr class='table-warning'>
                     <td><%= package.tracking_number %></td>
                     <td>Not active</td>
+                    <td class='d-flex justify-content-center'>
+                        <div>
+                            <%= link_to 'Activate', activate_courier_package_path(@courier, package), 
+                                class: 'btn btn-success', data: {method: :PUT} %>
+                            <%= link_to 'Delete', courier_package_path(@courier, package), 
+                                class: 'btn btn-danger', data: {method: :delete, confirm:'Are you sure?'} %>
+                        </div>
+                    </td>
                 </tr>
             <% end %>
         <% end %>
